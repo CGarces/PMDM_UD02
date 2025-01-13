@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Filmoteca</string>
+    <string name="perfil_desarrollador">Perfil desarrollador</string>
+    <string name="ir_web">Ir al sitio web</string>
+    <string name="func_na">Funcionalidad sin implementar</string>
+    <string name="volver">Volver</string>
+    <string name="obtener_soporte">Obtener soporte</string>
+    <string name="creada_por">Creada por: %1$s</string>
 </resources>

@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,7 @@ fun AboutScreen(author: String) {
     ){
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement  = Arrangement.Center) {
             Text(
-                text = "Creada por: $author",
+                text = stringResource(R.string.creada_por, author),
                 fontSize = MaterialTheme.typography.titleLarge.fontSize, // Tamaño de la fuente.
                 fontWeight = FontWeight.Bold, // Estilo de la fuente en negrita.
                 textAlign = TextAlign.Center, // Alineación del texto en el centro.
@@ -57,7 +58,7 @@ fun AboutScreen(author: String) {
 
             Image(
                 painter = painterResource(id = R.drawable.perfil),
-                contentDescription = "Perfil desarrollador",
+                contentDescription = stringResource(R.string.perfil_desarrollador),
                 modifier = Modifier
                     .size(150.dp)
             )
@@ -66,22 +67,22 @@ fun AboutScreen(author: String) {
                 Button(onClick = {
                     showToast(
                         context,
-                        message = "Funcionalidad sin implementar"
+                        message =  context.getString(R.string.func_na)
                     )
                 }) {
-                    Text("Ir al sitio web")
+                    Text(stringResource(R.string.ir_web))
                 }
                 Button(onClick = {
                     showToast(
                         context,
-                        message = "Funcionalidad sin implementar"
+                        message = context.getString(R.string.func_na)
                     )
                 }) {
-                    Text("Obtener soporte")
+                    Text(stringResource(R.string.obtener_soporte))
                 }
             }
-            Button(onClick = { showToast(context, message = "Funcionalidad sin implementar") }) {
-                Text("Volver")
+            Button(onClick = { showToast(context, message =  context.getString(R.string.func_na)) }) {
+                Text(stringResource(R.string.volver))
             }
         }
     }
