@@ -7,4 +7,13 @@
     <string name="obtener_soporte">Obtener soporte</string>
     <string name="creada_por">Creada por: %1$s</string>
     <string name="incidencia_con_filmoteca">Incidencia en la aplicacion de filmoteca</string>
+    <string name="ver">Ver Pelicula %1$s</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="datos_pelicula">Datos de la película</string>
+    <string name="ver_relacion">Ver película Relacionada</string>
+    <string name="editar">Editar película</string>
+    <string name="volver_principal">Volver a la principal</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="editando_pelicula">Editando película</string>
 </resources>
