@@ -1,6 +1,8 @@
 package com.campusdigitalfp.filmoteca
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -65,18 +67,12 @@ fun AboutScreen(author: String) {
 
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                 Button(onClick = {
-                    showToast(
-                        context,
-                        message =  context.getString(R.string.func_na)
-                    )
+                    abrirPaginaWeb("https://github.com/CGarces/PMDM_UD02", context = context)
                 }) {
                     Text(stringResource(R.string.ir_web))
                 }
                 Button(onClick = {
-                    showToast(
-                        context,
-                        message = context.getString(R.string.func_na)
-                    )
+                    mandarEmail(context = context, email = "cgarcesba@campusdigitalfp.es", asunto =  context.getString(R.string.incidencia_con_filmoteca))
                 }) {
                     Text(stringResource(R.string.obtener_soporte))
                 }
@@ -90,4 +86,23 @@ fun AboutScreen(author: String) {
 
 fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+fun abrirPaginaWeb(url: String, context: Context) {
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url) // Establece la URL que quieres abrir
+    }
+    context.startActivity(intent) // Inicia la actividad
+}
+
+fun mandarEmail(context: Context, email: String, asunto: String) {
+    val intent = Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.parse("mailto:$email")
+        putExtra(Intent.EXTRA_SUBJECT, asunto)
+    }
+
+    // Verifica si hay una aplicación que puede manejar el Intent
+    if (intent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(intent)
+    }
 }
