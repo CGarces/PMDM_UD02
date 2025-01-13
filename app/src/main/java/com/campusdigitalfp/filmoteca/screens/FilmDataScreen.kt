@@ -25,9 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.campusdigitalfp.filmoteca.R
 
-@Preview
 @Composable
-fun FilmDataScreen(navController: NavHostController)   {
+fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
     val context = LocalContext.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -35,7 +34,7 @@ fun FilmDataScreen(navController: NavHostController)   {
     ){
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement  = Arrangement.Center) {
             Text(
-                text = stringResource(R.string.datos_pelicula),
+                text = stringResource(R.string.datos_pelicula,pelicula),
                 fontSize = MaterialTheme.typography.titleLarge.fontSize, // Tamaño de la fuente.
                 fontWeight = FontWeight.Bold, // Estilo de la fuente en negrita.
                 textAlign = TextAlign.Center, // Alineación del texto en el centro.
@@ -45,7 +44,7 @@ fun FilmDataScreen(navController: NavHostController)   {
             )
 
 
-            Button(onClick = { navController.navigate("view") }) {
+            Button(onClick = { navController.navigate("view/Dummy") }) {
                 Text(stringResource(R.string.ver_relacion))
             }
             Button(onClick = { navController.navigate("edit") }) {
