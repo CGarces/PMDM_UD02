@@ -25,7 +25,7 @@ fun FilmListScreen(navController: NavHostController)   {
                 contentAlignment = Alignment.Center
             ){
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement  = Arrangement.Center) {
-                    Button(onClick = { navController.navigate("view/A") }) {
+                    Button(onClick = { navController.navigate("view/Harry Potter y la piedra Filosofal") }) {
                         Text(stringResource(R.string.ver, "A"))
                     }
                     Button(onClick = { navController.navigate("view/B") }) {

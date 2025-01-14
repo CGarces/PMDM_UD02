@@ -1,12 +1,18 @@
 package com.campusdigitalfp.filmoteca.screens
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,13 +24,21 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.campusdigitalfp.filmoteca.R
 import com.campusdigitalfp.filmoteca.common.BarraSuperiorComun
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewFilmDataScreen() {
+    FilmDataScreen(rememberNavController(),  pelicula= "Harry Potter y la piedra Filosofal" )
+}
 
 @Composable
 fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
@@ -39,35 +53,77 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
     }
     Scaffold(topBar = { BarraSuperiorComun(navController) },
         content = { paddingValues ->
-            Box(
-                Modifier.padding(paddingValues).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement  = Arrangement.Center) {
-                    Text(
-                        text = stringResource(R.string.datos_pelicula,pelicula),
-                        fontSize = MaterialTheme.typography.titleLarge.fontSize, // Tamaño de la fuente.
-                        fontWeight = FontWeight.Bold, // Estilo de la fuente en negrita.
-                        textAlign = TextAlign.Center, // Alineación del texto en el centro.
+            Column(
+                modifier = Modifier.padding(paddingValues).fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.cartel),
+                        contentDescription = stringResource(R.string.perfil_desarrollador),
                         modifier = Modifier
-                            .fillMaxWidth() // Ocupa todo el ancho disponible.
-                            .padding(16.dp) // Aplica un padding de 16 dp alrededor del texto.
+                            .size(150.dp)
                     )
-
-
-                    Button(onClick = { navController.navigate("view/Dummy") }) {
-                        Text(stringResource(R.string.ver_relacion))
+                    Column  {
+                        Text(
+                            text = pelicula,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontSize = MaterialTheme.typography.titleLarge.fontSize
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "Director:",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Chris Columbus",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Año:",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "2021",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Blueray, SCi-Fi",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+                Button(
+                    onClick = {
+                        abrirIMDB(context = context)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.ver_imdb))
+                }
+                Text(
+                    text = "Version Extendida",
+                    modifier = Modifier.fillMaxWidth() ,
+                )
+                Row {
+                    Button(onClick = { navController.popBackStack("list", false) }) {
+                        Text(stringResource(R.string.volver))
                     }
                     Button(onClick = {
                         navController.navigate("edit")
                     }) {
                         Text(stringResource(R.string.editar))
                     }
-                    Button(onClick = { navController.popBackStack("list", false) }) {
-                        Text(stringResource(R.string.volver_principal))
-                    }
                 }
             }
         }
     )
+}
+
+fun abrirIMDB(context: Context) {
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse("https://www.imdb.com/title/tt0241527/") // Establece la URL que quieres abrir
+    }
+    context.startActivity(intent) // Inicia la actividad
 }

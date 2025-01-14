@@ -9,8 +9,7 @@
     <string name="creada_por">Created by: %1$s</string>
     <string name="incidencia_con_filmoteca">Issue on film library application</string>
     <string name="acerca_de">About</string>
-    <string name="datos_pelicula">Movie %1$s</string>
-    <string name="ver_relacion">See related movie</string>
+    <string name="ver_imdb">View at IMDB</string>
     <string name="editar">Edit Movie</string>
     <string name="ver">See Movie %1$s</string>
     <string name="volver_principal">Back to Main</string>
