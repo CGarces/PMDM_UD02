@@ -71,7 +71,7 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Director:",
+                            text = stringResource(R.string.director).plus(":"),
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -80,7 +80,7 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Text(
-                            text = "Año:",
+                            text = stringResource(R.string.ano).plus(":"),
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold
                         )

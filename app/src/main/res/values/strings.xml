@@ -15,4 +15,13 @@
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="editando_pelicula">Editando película</string>
+    <string name="titulo">Título</string>
+    <string name="director">Director</string>
+    <string name="ano">Año</string>
+    <string name="imdb_url">Enlace a IMDB</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="genero">Genero</string>
+    <string name="formato">Formato</string>
+    <string name="tomar_foto">Tomar una fotografía</string>
+    <string name="sel_foto">Seleccionar una imagen</string>
 </resources>
