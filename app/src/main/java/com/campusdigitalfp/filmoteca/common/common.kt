@@ -2,36 +2,77 @@ package com.campusdigitalfp.filmoteca.common
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.campusdigitalfp.filmoteca.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BarraSuperiorComun(navController: NavHostController, cancelar: Boolean = false) {
+fun BarraSuperiorComun(navController: NavHostController, main: Boolean = false, cancelar: Boolean = false) {
+    var expanded by remember { mutableStateOf(false) }
     TopAppBar(
         title = {
             Text(text = stringResource(R.string.app_name))
         },
         navigationIcon = {
-            IconButton(onClick = {
-                if (cancelar)
-                    navController.previousBackStackEntry?.savedStateHandle?.set(
-                        "result",
-                        "RESULT_CANCELED"
+            if (!main) {
+                IconButton(onClick = {
+                    if (cancelar)
+                        navController.previousBackStackEntry?.savedStateHandle?.set(
+                            "result",
+                            "RESULT_CANCELED"
+                        )
+                    navController.popBackStack()
+                }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.volver)
                     )
-                navController.popBackStack()
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.volver)
-                )
+                }
+            }
+        },
+        actions = {
+            if (main) {
+                IconButton(onClick = { expanded = true }) {
+                    Icon(
+                        imageVector = Icons.Filled.Menu,
+                        contentDescription = "Menú desplegable"
+                    )
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    DropdownMenuItem(
+                        onClick = {
+                            val dummy = Film(id=FilmDataSource.films.size )
+                            FilmDataSource.films.add(dummy)
+                            expanded = false
+                            navController.navigate("list")
+
+                        },
+                        text = { Text(stringResource(R.string.add_pelicula)) }
+                    )
+                    DropdownMenuItem(
+                        onClick = {
+                            navController.navigate("about")
+                        },
+                        text = { Text(stringResource(R.string.acerca_de)) }
+                    )
+                }
             }
         }
     )
@@ -39,9 +80,9 @@ fun BarraSuperiorComun(navController: NavHostController, cancelar: Boolean = fal
 
 data class Film(
     var id: Int = 0,
-    var imageResId: Int = 0, // Propiedades de la clase
+    var imageResId: Int = R.drawable.cartel,
     var title: String = "<Sin título>",
-    var director: String = "",
+    var director: String = "Desconocido",
     var year: Int = 0,
     var genre: Int = 0,
     var format: Int = 0,

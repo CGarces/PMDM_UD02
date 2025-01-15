@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,7 +37,7 @@ fun PreviewFilmListScreen() {
 
 @Composable
 fun FilmListScreen(navController: NavHostController)   {
-    Scaffold(topBar = { BarraSuperiorComun(navController) },
+    Scaffold(topBar = { BarraSuperiorComun(navController, main = true) },
         content = { paddingValues ->
 
             Column(
@@ -78,10 +77,6 @@ fun FilmListScreen(navController: NavHostController)   {
                             }
                         }
                     }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { navController.navigate("about") }) {
-                    Text(stringResource(R.string.acerca_de))
                 }
             }
         }
