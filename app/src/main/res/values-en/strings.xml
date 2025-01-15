@@ -25,4 +25,5 @@
     <string name="formato">Format</string>
     <string name="tomar_foto">Take Picture</string>
     <string name="sel_foto">Select Image</string>
+    <string name="cartel">Poster</string>
 </resources>

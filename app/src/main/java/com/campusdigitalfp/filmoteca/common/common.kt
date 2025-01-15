@@ -84,7 +84,7 @@ object FilmDataSource {
 
         // Segunda película: Regreso al futuro
         val f2 = Film()
-        f1.id = films.size
+        f2.id = films.size
         f2.title = "Regreso al futuro"
         f2.director = "Robert Zemeckis"
         f2.imageResId = R.drawable.regreso_al_futuro
@@ -97,7 +97,7 @@ object FilmDataSource {
 
         // Tercera película: El rey león
         val f3 = Film()
-        f1.id = films.size
+        f3.id = films.size
         f3.title = "El rey león"
         f3.director = "Roger Allers, Rob Minkoff"
         f3.imageResId = R.drawable.el_rey_leon

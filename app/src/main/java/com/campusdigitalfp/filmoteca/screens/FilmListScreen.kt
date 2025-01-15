@@ -1,10 +1,12 @@
 package com.campusdigitalfp.filmoteca.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,10 +48,14 @@ fun FilmListScreen(navController: NavHostController)   {
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 LazyColumn {
                     items(FilmDataSource.films) { film ->
-                        Row {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth().padding(all = 8.dp)
+                                .clickable(onClick = { navController.navigate("view/".plus(film.id)) })
+                        ) {
                             Image(
-                                painter = painterResource(id = R.drawable.cartel),
-                                contentDescription = stringResource(R.string.perfil_desarrollador),
+                                painter = painterResource(id = film.imageResId),
+                                contentDescription = stringResource(R.string.cartel),
                                 modifier = Modifier
                                     .size(90.dp)
                             )

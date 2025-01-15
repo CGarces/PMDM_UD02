@@ -33,17 +33,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.campusdigitalfp.filmoteca.R
 import com.campusdigitalfp.filmoteca.common.BarraSuperiorComun
+import com.campusdigitalfp.filmoteca.common.FilmDataSource
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewFilmDataScreen() {
-    FilmDataScreen(rememberNavController(),  pelicula= "Harry Potter y la piedra Filosofal" )
+    FilmDataScreen(rememberNavController(), idPelicula = 0  )
 }
 
 @Composable
-fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
+fun FilmDataScreen(navController: NavHostController, idPelicula: Int)   {
     val context = LocalContext.current
+    val film = FilmDataSource.films[idPelicula]
     val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+    val formatoList = context.resources.getStringArray(R.array.formato_list).toList()
     if (savedStateHandle != null) {
         val result by savedStateHandle.getLiveData<String>("result").observeAsState()
         LaunchedEffect(result) {
@@ -58,14 +61,13 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Row {
                     Image(
-                        painter = painterResource(id = R.drawable.cartel),
-                        contentDescription = stringResource(R.string.perfil_desarrollador),
-                        modifier = Modifier
-                            .size(150.dp)
+                        painter = painterResource(id = film.imageResId),
+                        contentDescription = stringResource(R.string.cartel),
+                        modifier = Modifier.size(150.dp)
                     )
                     Column  {
                         Text(
-                            text = pelicula,
+                            text = film.title,
                             style = MaterialTheme.typography.titleLarge,
                             fontSize = MaterialTheme.typography.titleLarge.fontSize
                         )
@@ -76,7 +78,7 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Chris Columbus",
+                            text = film.director,
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Text(
@@ -85,25 +87,25 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "2021",
+                            text = film.year.toString(),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Text(
-                            text = "Blueray, SCi-Fi",
+                            text = formatoList[film.format],
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
                 Button(
                     onClick = {
-                        abrirIMDB(context = context)
+                        film.imdbUrl?.let { abrirIMDB(context = context, it) }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(stringResource(R.string.ver_imdb))
                 }
                 Text(
-                    text = "Version Extendida",
+                    text = film.comments ?: "Sin comentarios",
                     modifier = Modifier.fillMaxWidth() ,
                 )
                 Row {
@@ -111,7 +113,7 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
                         Text(stringResource(R.string.volver))
                     }
                     Button(onClick = {
-                        navController.navigate("edit")
+                        navController.navigate("edit/".plus(film.id))
                     }) {
                         Text(stringResource(R.string.editar))
                     }
@@ -121,9 +123,9 @@ fun FilmDataScreen(navController: NavHostController, pelicula: String)   {
     )
 }
 
-fun abrirIMDB(context: Context) {
+fun abrirIMDB(context: Context, url: String) {
     val intent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("https://www.imdb.com/title/tt0241527/") // Establece la URL que quieres abrir
+        data = Uri.parse(url) // Establece la URL que quieres abrir
     }
     context.startActivity(intent) // Inicia la actividad
 }

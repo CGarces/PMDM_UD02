@@ -24,4 +24,5 @@
     <string name="formato">Formato</string>
     <string name="tomar_foto">Tomar una fotografía</string>
     <string name="sel_foto">Seleccionar una imagen</string>
+    <string name="cartel">Cartel</string>
 </resources>

@@ -16,13 +16,18 @@ fun Navigation(){
     NavHost(navController = navController, startDestination = "list") {
         composable("list") { FilmListScreen(navController) }
         composable("about") { AboutScreen(navController) }
-        composable("view/{pelicula}") { backStackEntry ->
-            val pelicula = backStackEntry.arguments?.getString("pelicula")?.toString()
-            pelicula?.let {
-               FilmDataScreen(navController, pelicula)
+        composable("view/{idPelicula}") { backStackEntry ->
+            val idPelicula = backStackEntry.arguments?.getString("idPelicula")?.toInt()
+            idPelicula?.let {
+               FilmDataScreen(navController, idPelicula)
             }
         }
-        composable("edit") { FilmEditScreen(navController) }
+        composable("edit/{idPelicula}") { backStackEntry ->
+            val idPelicula = backStackEntry.arguments?.getString("idPelicula")?.toInt()
+            idPelicula?.let {
+                FilmEditScreen(navController, idPelicula)
+            }
+        }
 
 
 
