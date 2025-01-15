@@ -1,5 +1,6 @@
 package com.campusdigitalfp.filmoteca.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -45,6 +46,7 @@ fun PreviewFilmEditScreen() {
 
 @Composable
 fun FilmEditScreen(navController: NavHostController, idPelicula: Int)   {
+    Log.d("PMDM2", "Iniciando la edicion de una pelicula.")
     val film = FilmDataSource.films[idPelicula]
 
     var titulo by remember { mutableStateOf(film.title) }
@@ -200,11 +202,13 @@ fun FilmEditScreen(navController: NavHostController, idPelicula: Int)   {
                         FilmDataSource.films[idPelicula].title = titulo
                         FilmDataSource.films[idPelicula].comments = comentarios
                         FilmDataSource.films[idPelicula].imdbUrl = url
+                        Log.d("PMDM2", "Editada pelicula correctamente.")
                         navController.navigate("view/".plus(idPelicula))
                     }) {
                         Text(stringResource(R.string.guardar))
                     }
                     Button(onClick = {
+                        Log.d("PMDM2", "Cancelada edicion pelicula.")
                         navController.previousBackStackEntry?.savedStateHandle?.set(
                             "result",
                             "RESULT_CANCELED"
