@@ -40,8 +40,8 @@ fun BarraSuperiorComun(navController: NavHostController, cancelar: Boolean = fal
 data class Film(
     var id: Int = 0,
     var imageResId: Int = 0, // Propiedades de la clase
-    var title: String? = null,
-    var director: String? = null,
+    var title: String = "<Sin título>",
+    var director: String = "",
     var year: Int = 0,
     var genre: Int = 0,
     var format: Int = 0,
@@ -50,7 +50,7 @@ data class Film(
 ) {
     override fun toString(): String {
         // Al convertir a cadena mostramos su título
-        return title ?: "<Sin título>"
+        return title
     }
 
     companion object {
