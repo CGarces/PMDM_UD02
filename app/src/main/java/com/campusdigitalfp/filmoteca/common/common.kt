@@ -2,6 +2,7 @@ package com.campusdigitalfp.filmoteca.common
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -11,7 +12,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -21,7 +24,11 @@ import com.campusdigitalfp.filmoteca.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BarraSuperiorComun(navController: NavHostController, main: Boolean = false, cancelar: Boolean = false) {
+fun BarraSuperiorComun(
+    navController: NavHostController, main: Boolean = false, cancelar: Boolean = false,
+    isActionMode: MutableState<Boolean> = mutableStateOf(false),
+    selectedFilms: MutableList<Film> = mutableStateListOf<Film>() )
+{
     var expanded by remember { mutableStateOf(false) }
     TopAppBar(
         title = {
@@ -45,6 +52,18 @@ fun BarraSuperiorComun(navController: NavHostController, main: Boolean = false, 
             }
         },
         actions = {
+            if (isActionMode.value) {
+                IconButton(onClick = {
+                    FilmDataSource.films.removeAll(selectedFilms)
+                    selectedFilms.clear()
+                    isActionMode.value = false
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Borrar seleccionados"
+                    )
+                }
+            }
             if (main) {
                 IconButton(onClick = { expanded = true }) {
                     Icon(
